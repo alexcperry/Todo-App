@@ -1,7 +1,6 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const uuid = require('uuid');
 require('dotenv').config();
 let Todo = require('./models/todo.model.js');
 
@@ -21,15 +20,18 @@ connection.once('open', () => {
 });
 
 // Routing
+
+// Read Route - WORKING
 app.get('/', (req, res) => {
   Todo.find()
     .then(todoList => res.json(todoList))
     .catch(err => res.status(400).json(`Error ${err}`));
 });
 
+// Create Route - WORKING
 app.post('/add', (req, res) => {
+
   const newTodo = new Todo({
-    id: uuid.v4(),
     title: req.body.title,
     completed: false,
   });
@@ -37,7 +39,27 @@ app.post('/add', (req, res) => {
   newTodo.save()
     .then(() => res.json('Added todo!'))
     .catch(err => res.status(400).json(`Error ${err}`));
+});
 
+// Update Route - WORKING
+app.post('/update/:id', (req, res) => {
+  Todo.findById(req.params.id)
+    .then(todo => {
+      todo.title = req.body.title;
+      todo.completed = req.body.completed;
+
+      todo.save()
+        .then(() => res.json('Todo updated!'))
+        .catch(err => res.status(400).json('Error: ' + err));
+    })
+    .catch(err => res.status(400).json('Error: ' + err));
+});
+
+// Delete Route - WORKING
+app.get('/delete/:id', (req, res) => {
+  Todo.findByIdAndDelete(req.params.id)
+    .then(() => res.json('Todo deleted.'))
+    .catch(err => res.status(400).json('Error: ' + err));
 })
 
 
