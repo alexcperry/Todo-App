@@ -1,10 +1,10 @@
 import React from 'react';
 import Todos from './components/Todos';
 import Header from './components/layout/Header';
-import { v4 as uuidv4 } from 'uuid';
 
 import './App.css';
 import AddTodo from './components/AddTodo';
+import axios from 'axios';
 
 class App extends React.Component {
 
@@ -12,31 +12,22 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      todos: [
-        {
-          id: uuidv4(),
-          title: 'Pet dogs',
-          completed: false,
-        },
-        {
-          id: uuidv4(),
-          title: 'Watch The Good Place',
-          completed: false,
-        },
-        {
-          id: uuidv4(),
-          title: 'Learn React',
-          completed: false,
-        },
-      ]
+      todos: []
     }
+  }
+
+  componentDidMount() {
+    axios.get('http://localhost:3000/')
+      .then(res => {
+        this.setState({ todos: res.data });
+      })
   }
 
 
   markComplete = (id) => {
     this.setState({
       todos: this.state.todos.map(todo => {
-        if (todo.id === id) {
+        if (todo._id === id) {
           todo.completed = !todo.completed;
         }
         return todo;
@@ -45,20 +36,25 @@ class App extends React.Component {
   }
 
   delTodo = id => {
-    this.setState({
-      todos: this.state.todos.filter(todo => { return todo.id !== id })
-    })
+    // this.setState({
+    //   todos: this.state.todos.filter(todo => { return todo.id !== id })
+    // })
+
+    console.log("sending delete HTTP request!");
+
+    axios.get(`http://localhost:3000/delete/${id}`)
+      .then(res => console.log(res));
+
   }
 
   addTodo = title => {
-    const newTodo = {
-      id: uuidv4(),
-      title,
-      completed: false,
-    }
-    this.setState({
-      todos: [...this.state.todos, newTodo]
-    })
+    const newTodo = { title };
+
+    axios.post('http://localhost:3000/add', newTodo)
+      .then(res => {
+        this.setState({ todos: [...this.state.todos, res.data] })
+      });
+
   }
 
   render() {

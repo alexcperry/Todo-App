@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import axios from 'axios';
 
 export class AddTodo extends Component {
 
@@ -15,9 +14,6 @@ export class AddTodo extends Component {
     e.preventDefault();
     this.props.addTodo(this.state.title);
     this.setState({ title: '' });
-
-    axios.get('http://localhost:3000/test')
-      .then(res => console.log(res));
 
   }
 

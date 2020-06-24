@@ -21,12 +21,21 @@ connection.once('open', () => {
 
 // Routing
 
-// Read Route - WORKING
+// Read All Route - WORKING
 app.get('/', (req, res) => {
   Todo.find()
     .then(todoList => res.json(todoList))
     .catch(err => res.status(400).json(`Error ${err}`));
 });
+
+//Read Route - WORKING
+app.get('/:id', (req, res) => {
+  Todo.findById(req.params.id)
+    .then(todo => {
+      res.json(todo);
+    })
+    .catch(err => res.status(400).json(`Error ${err}`));
+})
 
 // Create Route - WORKING
 app.post('/add', (req, res) => {
@@ -37,7 +46,7 @@ app.post('/add', (req, res) => {
   });
 
   newTodo.save()
-    .then(() => res.json('Added todo!'))
+    .then(() => res.json(newTodo))
     .catch(err => res.status(400).json(`Error ${err}`));
 });
 
@@ -57,6 +66,9 @@ app.post('/update/:id', (req, res) => {
 
 // Delete Route - WORKING
 app.get('/delete/:id', (req, res) => {
+
+  console.log("I'm in");
+
   Todo.findByIdAndDelete(req.params.id)
     .then(() => res.json('Todo deleted.'))
     .catch(err => res.status(400).json('Error: ' + err));
