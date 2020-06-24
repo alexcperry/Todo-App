@@ -21,14 +21,14 @@ connection.once('open', () => {
 
 // Routing
 
-// Read All Route - WORKING
+// Read All Route
 app.get('/', (req, res) => {
   Todo.find()
     .then(todoList => res.json(todoList))
     .catch(err => res.status(400).json(`Error ${err}`));
 });
 
-//Read Route - WORKING
+//Read Route
 app.get('/:id', (req, res) => {
   Todo.findById(req.params.id)
     .then(todo => {
@@ -37,7 +37,7 @@ app.get('/:id', (req, res) => {
     .catch(err => res.status(400).json(`Error ${err}`));
 })
 
-// Create Route - WORKING
+// Create Route
 app.post('/add', (req, res) => {
 
   const newTodo = new Todo({
@@ -50,7 +50,7 @@ app.post('/add', (req, res) => {
     .catch(err => res.status(400).json(`Error ${err}`));
 });
 
-// Update Route - WORKING
+// Update Route
 app.post('/update/:id', (req, res) => {
   Todo.findById(req.params.id)
     .then(todo => {
@@ -64,7 +64,7 @@ app.post('/update/:id', (req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
-// Delete Route - WORKING
+// Delete Route
 app.get('/delete/:id', (req, res) => {
 
   Todo.findByIdAndDelete(req.params.id)
