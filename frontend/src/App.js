@@ -29,6 +29,9 @@ class App extends React.Component {
       todos: this.state.todos.map(todo => {
         if (todo._id === id) {
           todo.completed = !todo.completed;
+
+          const newTodo = { title: todo.title, completed: todo.completed }
+          axios.post(`http://localhost:3000/update/${todo._id}`, newTodo);
         }
         return todo;
       })
@@ -43,12 +46,17 @@ class App extends React.Component {
   }
 
   addTodo = title => {
+
     const newTodo = { title };
 
     axios.post('http://localhost:3000/add', newTodo)
       .then(res => {
         this.setState({ todos: [...this.state.todos, res.data] })
       });
+
+
+
+
 
   }
 
