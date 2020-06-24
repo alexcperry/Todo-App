@@ -67,13 +67,13 @@ app.post('/update/:id', (req, res) => {
 // Delete Route - WORKING
 app.get('/delete/:id', (req, res) => {
 
-  console.log("I'm in");
-
   Todo.findByIdAndDelete(req.params.id)
-    .then(() => res.json('Todo deleted.'))
+    .catch(err => res.status(400).json('Error: ' + err));
+
+  Todo.find()
+    .then(todoList => res.json(todoList))
     .catch(err => res.status(400).json('Error: ' + err));
 })
-
 
 // Listen on PORT
 const PORT = process.env.PORT || 3000;

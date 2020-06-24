@@ -36,15 +36,10 @@ class App extends React.Component {
   }
 
   delTodo = id => {
-    // this.setState({
-    //   todos: this.state.todos.filter(todo => { return todo.id !== id })
-    // })
-
-    console.log("sending delete HTTP request!");
-
     axios.get(`http://localhost:3000/delete/${id}`)
-      .then(res => console.log(res));
+      .then(res => this.setState({ todos: res.data }));
 
+    console.log(this.state.todos);
   }
 
   addTodo = title => {
@@ -63,9 +58,11 @@ class App extends React.Component {
         <Header />
         <div className="wrapper">
           <AddTodo addTodo={this.addTodo} />
-          <Todos todos={this.state.todos} markComplete=
-            {this.markComplete} delTodo={this.delTodo
-            } />
+          <Todos
+            todos={this.state.todos}
+            markComplete={this.markComplete}
+            delTodo={this.delTodo}
+          />
         </div>
       </div>
     );
