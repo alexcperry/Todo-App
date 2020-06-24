@@ -46,18 +46,12 @@ class App extends React.Component {
   }
 
   addTodo = title => {
-
     const newTodo = { title };
 
     axios.post('http://localhost:3000/add', newTodo)
       .then(res => {
         this.setState({ todos: [...this.state.todos, res.data] })
       });
-
-
-
-
-
   }
 
   render() {
