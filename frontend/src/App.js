@@ -18,7 +18,7 @@ class App extends React.Component {
 
   componentDidMount() {
 
-    axios.get('https://obscure-savannah-32863.herokuapp.com/')
+    axios.get('https://obscure-savannah-32863.herokuapp.com/todos')
       .then(res => {
         this.setState({ todos: res.data });
       })

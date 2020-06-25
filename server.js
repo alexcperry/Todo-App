@@ -26,15 +26,15 @@ connection.once('open', () => {
 
 // Read All Route
 
-// app.get('/', (req, res) => {
+app.get('/todos', (req, res) => {
 
-//   Todo.find()
-//     .then(todoList => res.json(todoList))
-//     .catch(err => res.status(400).json(`Error ${err}`));
-// });
+  Todo.find()
+    .then(todoList => res.json(todoList))
+    .catch(err => res.status(400).json(`Error ${err}`));
+});
 
 //Read Route
-app.get('/:id', (req, res) => {
+app.get('/todos/:id', (req, res) => {
   Todo.findById(req.params.id)
     .then(todo => {
       res.json(todo);
