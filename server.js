@@ -25,12 +25,13 @@ connection.once('open', () => {
 // Routing
 
 // Read All Route
-app.get('/', (req, res) => {
 
-  Todo.find()
-    .then(todoList => res.json(todoList))
-    .catch(err => res.status(400).json(`Error ${err}`));
-});
+// app.get('/', (req, res) => {
+
+//   Todo.find()
+//     .then(todoList => res.json(todoList))
+//     .catch(err => res.status(400).json(`Error ${err}`));
+// });
 
 //Read Route
 app.get('/:id', (req, res) => {
