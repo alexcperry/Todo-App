@@ -17,6 +17,9 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+
+    console.log("marker4");
+
     axios.get('http://localhost:3000/')
       .then(res => {
         this.setState({ todos: res.data });

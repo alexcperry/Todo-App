@@ -24,10 +24,12 @@ connection.once('open', () => {
 
 // Routing
 
+console.log("marker1");
+
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('frontend/build'));
 
-  console.log("test");
+  console.log("marker2");
 
   app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
@@ -36,6 +38,8 @@ if (process.env.NODE_ENV === 'production') {
 
 // Read All Route
 app.get('/', (req, res) => {
+
+  console.log("marker3");
   Todo.find()
     .then(todoList => res.json(todoList))
     .catch(err => res.status(400).json(`Error ${err}`));
