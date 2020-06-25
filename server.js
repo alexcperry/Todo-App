@@ -12,6 +12,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+
 // DB Connection
 const uri = process.env.ATLAS_URI;
 mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true });
@@ -19,6 +20,7 @@ const connection = mongoose.connection;
 connection.once('open', () => {
   console.log("MongoDB database connection established successfully!");
 });
+
 
 // Routing
 
@@ -83,6 +85,7 @@ app.get('/delete/:id', (req, res) => {
     .then(todoList => res.json(todoList))
     .catch(err => res.status(400).json('Error: ' + err));
 })
+
 
 // Listen on PORT
 const PORT = process.env.PORT || 3000;
