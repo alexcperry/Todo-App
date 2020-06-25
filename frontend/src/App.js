@@ -17,7 +17,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('/')
+    axios.get('http://localhost:3000/')
       .then(res => {
         this.setState({ todos: res.data });
       })
@@ -31,26 +31,25 @@ class App extends React.Component {
           todo.completed = !todo.completed;
 
           const newTodo = { title: todo.title, completed: todo.completed }
-          axios.post(`/update/${todo._id}`, newTodo);
+          axios.post(`http://localhost:3000/update/${todo._id}`, newTodo);
         }
         return todo;
       })
     })
   }
 
-  //http://localhost:3000
-
   delTodo = id => {
-    axios.get(`/delete/${id}`)
+    axios.get(`http://localhost:3000/delete/${id}`)
       .then(res => this.setState({ todos: res.data }));
 
     console.log(this.state.todos);
   }
 
   addTodo = title => {
+
     const newTodo = { title };
 
-    axios.post('/add', newTodo)
+    axios.post('http://localhost:3000/add', newTodo)
       .then(res => {
         this.setState({ todos: [...this.state.todos, res.data] })
       });
