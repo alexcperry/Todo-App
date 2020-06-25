@@ -16,6 +16,7 @@ class App extends React.Component {
     }
   }
 
+
   componentDidMount() {
 
     axios.get('https://obscure-savannah-32863.herokuapp.com/todos')
@@ -39,6 +40,7 @@ class App extends React.Component {
     })
   }
 
+
   delTodo = id => {
     axios.get(`https://obscure-savannah-32863.herokuapp.com/delete/${id}`)
       .then(res => this.setState({ todos: res.data }));
@@ -46,8 +48,8 @@ class App extends React.Component {
     console.log(this.state.todos);
   }
 
-  addTodo = title => {
 
+  addTodo = title => {
     const newTodo = { title };
 
     axios.post('https://obscure-savannah-32863.herokuapp.com/add', newTodo)
@@ -55,6 +57,7 @@ class App extends React.Component {
         this.setState({ todos: [...this.state.todos, res.data] })
       });
   }
+
 
   render() {
     return (
@@ -72,5 +75,6 @@ class App extends React.Component {
     );
   }
 }
+
 
 export default App;

@@ -5,6 +5,7 @@ const path = require('path');
 require('dotenv').config();
 let Todo = require('./models/todo.model.js');
 
+//Make server
 const app = express();
 
 
@@ -25,7 +26,6 @@ connection.once('open', () => {
 // Routing
 
 // Read All Route
-
 app.get('/todos', (req, res) => {
 
   Todo.find()
@@ -69,6 +69,7 @@ app.post('/update/:id', (req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
+
 // Delete Route
 app.get('/delete/:id', (req, res) => {
 
@@ -80,6 +81,8 @@ app.get('/delete/:id', (req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 })
 
+
+// Serve statics
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('frontend/build'));
 
